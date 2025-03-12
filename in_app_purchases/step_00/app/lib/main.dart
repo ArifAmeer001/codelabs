@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:provider/provider.dart';
 
 import 'logic/dash_counter.dart';
@@ -65,7 +66,11 @@ class _MyHomePageState extends State<MyHomePage> {
           create: (context) => IAPRepo(context.read<FirebaseNotifier>()),
         ),
         ChangeNotifierProvider<DashPurchases>(
-          create: (context) => DashPurchases(context.read<DashCounter>()),
+          create: (context) => DashPurchases(
+              context.read<DashCounter>(),
+              context.read<FirebaseNotifier>()
+          ),
+          lazy: false, //I added this...
         ),
       ],
       child: Scaffold(
@@ -82,5 +87,20 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
+  }
+}
+
+
+// Gives the option to override in tests.
+//I have added this
+class IAPConnection {
+  static InAppPurchase? _instance;
+  static set instance(InAppPurchase value) {
+    _instance = value;
+  }
+
+  static InAppPurchase get instance {
+    _instance ??= InAppPurchase.instance;
+    return _instance!;
   }
 }

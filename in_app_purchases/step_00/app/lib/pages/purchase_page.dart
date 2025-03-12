@@ -2,16 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../logic/dash_purchases.dart';
+import '../logic/firebase_notifier.dart';
+import '../model/firebase_state.dart';
 import '../model/purchasable_product.dart';
 import '../model/store_state.dart';
 import '../repo/iap_repo.dart';
+import 'login_page.dart';
 
 class PurchasePage extends StatelessWidget {
   const PurchasePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var firebaseNotifier = context.watch<FirebaseNotifier>();
     var upgrades = context.watch<DashPurchases>();
+
+    if(firebaseNotifier.state == FirebaseState.loading){
+      return _PurchasesLoading();
+    } else if(firebaseNotifier.state == FirebaseState.notAvailable){
+      return _PurchasesNotAvailable();
+    }
+    if(!firebaseNotifier.isLoggingIn){
+      return const LoginPage();
+    }
 
     Widget storeWidget;
     switch (upgrades.storeState) {

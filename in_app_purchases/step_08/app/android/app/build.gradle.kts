@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.dashclicker"
+    namespace = "com.qnicorn.innercrew"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -21,7 +21,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.example.dashclicker"
+        applicationId = "com.qnicorn.innercrew"
         // Per https://firebase.google.com/support/release-notes/android firebase_auth requires minSdk 23
         minSdk = 23
         targetSdk = flutter.targetSdkVersion

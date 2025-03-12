@@ -11,6 +11,8 @@ import '../firebase_options.dart';
 import '../model/firebase_state.dart';
 
 class FirebaseNotifier extends ChangeNotifier {
+
+  User? get user => FirebaseAuth.instance.currentUser;
   bool loggedIn = false;
   FirebaseState state = FirebaseState.loading;
   bool isLoggingIn = false;
